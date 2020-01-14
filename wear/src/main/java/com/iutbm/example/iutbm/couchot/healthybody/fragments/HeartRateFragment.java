@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,7 +32,7 @@ import com.iutbm.example.iutbm.couchot.healthybody.utils.HeartBeatView;
 public class HeartRateFragment extends Fragment  implements SensorEventListener {
 
     private PulseView psv;
-    private TextView mTextViewHeart,mTextViewOperation,mTextViewTime,mTextResult;
+    private TextView mTextViewHeart,mTextViewOperation,mTextViewTime,mTextResult,mTextID;
     private SensorManager mSensorManager;
     private LinearLayout linearLayout;
     private Integer indice=0;
@@ -39,7 +40,8 @@ public class HeartRateFragment extends Fragment  implements SensorEventListener 
     private Integer[] time=new Integer[]{60000,45000,60000};
     private Integer[] pouls=new Integer[]{0,0,0};
     private Integer value=0;
-    private RelativeLayout startView,resultView;
+    private RelativeLayout startView,MainStart,resultView;
+    private Button Go;
 
     public HeartRateFragment() {
         // Required empty public constructor
@@ -58,26 +60,20 @@ public class HeartRateFragment extends Fragment  implements SensorEventListener 
         mTextViewTime=(TextView)rootView.findViewById(R.id.timetotake);
         resultView=(RelativeLayout)rootView.findViewById(R.id.viewResult);
         startView=(RelativeLayout)rootView.findViewById(R.id.viewStart);
+        MainStart=(RelativeLayout)rootView.findViewById(R.id.GetStarted);
         mTextResult=(TextView)rootView.findViewById(R.id.txtResult);
+        Go=(Button)rootView.findViewById(R.id.Go);
 
-        //Configuartion
-        if (getActivity().checkSelfPermission(Manifest.permission.BODY_SENSORS)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.BODY_SENSORS},
-                    1);
-            Message("Vous devez autoriser la l'écture des pouls");
-        } else {
-            mSensorManager = ((SensorManager)getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE));
-            Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-            mSensorManager.registerListener(this, mHeartRateSensor,  SensorManager.SENSOR_DELAY_FASTEST);
+        Go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-           Message("Bien placez la montre SVP");
-
-            psv.startPulse();
-            mTextViewOperation.setText(Instructions[indice]);
-            CountDown();
-        };
-
+                MainStart.setVisibility(View.INVISIBLE);
+                resultView.setVisibility(View.INVISIBLE);
+                startView.setVisibility(View.VISIBLE);
+                lanceWork();
+            }
+        });
 
 
 
@@ -96,6 +92,28 @@ public class HeartRateFragment extends Fragment  implements SensorEventListener 
 
 
         return rootView;
+    }
+
+    public void lanceWork(){
+
+        //Configuartion
+        if (getActivity().checkSelfPermission(Manifest.permission.BODY_SENSORS)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.BODY_SENSORS},
+                    1);
+            Message("Vous devez autoriser la l'écture des pouls");
+        } else {
+            mSensorManager = ((SensorManager)getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE));
+            Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
+            mSensorManager.registerListener(this, mHeartRateSensor,  SensorManager.SENSOR_DELAY_FASTEST);
+
+            Message("Bien placez la montre SVP");
+
+            psv.startPulse();
+            mTextViewOperation.setText(Instructions[indice]);
+            CountDown();
+        };
+
     }
 
     public void CountDown(){
@@ -140,7 +158,7 @@ public class HeartRateFragment extends Fragment  implements SensorEventListener 
     public void onSensorChanged(SensorEvent sensorEvent) {
 
         if (sensorEvent.sensor.getType() == Sensor.TYPE_HEART_RATE) {
-                //Read
+            //Read
             value = (int)sensorEvent.values[0];
             mTextViewHeart.setText(""+value);
         }
@@ -171,12 +189,14 @@ public class HeartRateFragment extends Fragment  implements SensorEventListener 
     }
 
     public void getResult(){
-            Integer Lr=((pouls[0]+pouls[1]+pouls[2])-200)/10;
-            Integer Ld = ((pouls[0]-70) + 2*(pouls[2]-pouls[0]) )/10;
+        Integer Lr=((pouls[0]+pouls[1]+pouls[2])-200)/10;
+        Integer Ld = ((pouls[0]-70) + 2*(pouls[2]-pouls[0]) )/10;
 
-            mTextResult.setText("LR => "+Lr+" \nLD => "+Ld);
+        mTextResult.setText("LR => "+Lr+" \nLD => "+Ld +" \n resultat de Test chez le medecin");
 
-             resultView.setVisibility(View.VISIBLE);
+        startView.setVisibility(View.INVISIBLE);
+        MainStart.setVisibility(View.INVISIBLE);
+        resultView.setVisibility(View.VISIBLE);
 
     }
 }
