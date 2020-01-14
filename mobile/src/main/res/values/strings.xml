@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MobileHeart</string>
+    <string name="Registre">Vous n\'avez pas un compte ?</string>
+    <string name="password">Mot de passe</string>
+    <string name="sign">Se connecter</string>
+    <string name="souvenir">Se souvenir de moi</string>
+    <string name="signAccount">S\'inscrire</string>
+</resources>

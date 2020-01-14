@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="screens">
+        <item>Informations</item>
+        <item>Test</item>
+    </string-array>
+
+    <string-array name="Informations">
+        <item>Informations</item>
+        <item>ic_info</item>
+    </string-array>
+
+    <string-array name="Test">
+        <item>Test de Rufier</item>
+        <item>icon</item>
+    </string-array>
+
+
+</resources>
