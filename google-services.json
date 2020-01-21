@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "449949741069",
+    "firebase_url": "https://heartruffier.firebaseio.com",
+    "project_id": "heartruffier",
+    "storage_bucket": "heartruffier.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449949741069:android:cb316d7aea9e161934e544",
+        "android_client_info": {
+          "package_name": "com.iutbm.example.iutbm.couchot.healthybody"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449949741069-hr0mg341c3c2r4ep8mui8qrjkdi5c1e5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBGo31Fwx9nrRolEMSpOFu1WnsUHowxME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449949741069-hr0mg341c3c2r4ep8mui8qrjkdi5c1e5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
