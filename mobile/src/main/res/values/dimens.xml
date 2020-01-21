@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="defaultSize">14dp</dimen>
+    <dimen name="title">20dp</dimen>
+    <dimen name="titleBig">22dp</dimen>
+</resources>
