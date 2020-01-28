@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="57dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <View
+    <ImageView
         android:id="@+id/profilePicPatient"
         android:layout_width="45dp"
         android:layout_height="45dp"
