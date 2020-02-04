@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/dernierTest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/defaultSize"
@@ -41,6 +42,7 @@
                 android:textColor="@color/colorNormalPink"
                 />
             <TextView
+                android:id="@+id/GenResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/defaultSize"

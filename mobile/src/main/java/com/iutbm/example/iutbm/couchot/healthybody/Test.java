@@ -14,6 +14,9 @@ public class Test {
         P2 = p2;
     }
 
+    public Test() {
+    }
+
     public String getID() {
         return ID;
     }

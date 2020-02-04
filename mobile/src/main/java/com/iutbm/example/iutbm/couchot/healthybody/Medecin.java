@@ -1,5 +1,7 @@
 package com.iutbm.example.iutbm.couchot.healthybody;
 
+import java.util.HashMap;
+
 public class Medecin {
 
         String ID;
@@ -7,9 +9,8 @@ public class Medecin {
         String prenom;
         String email;
         String password;
-public Medecin(){
-
-}
+        HashMap<String,Patient> ListePatient=new HashMap<>();
+        public Medecin(){ }
         public Medecin(String ID, String nom, String prenom, String email, String password) {
             this.ID = ID;
             this.nom = nom;
@@ -17,6 +18,14 @@ public Medecin(){
             this.email = email;
             this.password = password;
         }
+
+    public HashMap<String, Patient> getListePatient() {
+        return ListePatient;
+    }
+
+    public void setListePatient(HashMap<String, Patient> listePatient) {
+        ListePatient = listePatient;
+    }
 
     public String getID() {
         return ID;

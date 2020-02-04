@@ -2,6 +2,10 @@ package com.iutbm.example.iutbm.couchot.healthybody;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.iutbm.example.iutbm.couchot.healthybody.Activities.ListePatientsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity   {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //shared Prefres
+     final    SharedPreferences pref = getApplicationContext().getSharedPreferences("conf", 0); // 0 - for private mode
         //Initialisation base de données
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference().child("Medecins");
@@ -86,6 +93,7 @@ public class MainActivity extends AppCompatActivity   {
                 btnConnecte.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Boolean trouve=true;
                        if(listVerified.size()<0){
                            Toast.makeText(getApplicationContext(),"Faible Connection",Toast.LENGTH_SHORT).show();
                        }else
@@ -93,11 +101,19 @@ public class MainActivity extends AppCompatActivity   {
                            for (Medecin medInListe:listVerified.values()) {
                                if(txtEmailConnecte.getText().toString().toLowerCase().equalsIgnoreCase(medInListe.email.toString().toLowerCase()) && txtPasswordConnecte.getText().toString().toLowerCase().equalsIgnoreCase(medInListe.password.toString().toLowerCase())){
                                   //Redirection Home Interface
-                                   Toast.makeText(getApplicationContext(),medInListe.getID(),Toast.LENGTH_SHORT).show();
+                                  SharedPreferences.Editor editor = pref.edit();
+                                     editor.putString("uid",medInListe.getID());
+                                  editor.commit();
+                                   Intent intent = new Intent(getBaseContext(), ListePatientsActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                   trouve=false;
                                    break;
                                }
                            }
-                           Toast.makeText(getApplicationContext(),"compte n'existe pas",Toast.LENGTH_SHORT).show();;
+                           if(trouve){
+                               Toast.makeText(getApplicationContext(),"compte n'existe pas",Toast.LENGTH_SHORT).show();;
+                           }
                        }
                     }
                 });
@@ -106,12 +122,10 @@ public class MainActivity extends AppCompatActivity   {
         btnRegistre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String emailText=txtEmailRegistre.getText().toString();
                 String passText= txtPasswordRegistre.getText().toString();
                 String prenomText=txtPrenomRegistre.getText().toString();
                 String nomText=txtNomRegistre.getText().toString();
-
                 if(emptyString(passText) || emptyString(prenomText) || emptyString(nomText) || isValidEmailAddress(emailText) ){
 
                     String uid = databaseReference.push().getKey();
