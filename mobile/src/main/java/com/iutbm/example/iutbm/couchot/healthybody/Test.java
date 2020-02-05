@@ -1,20 +1,32 @@
 package com.iutbm.example.iutbm.couchot.healthybody;
 
-public class Test {
+import java.io.Serializable;
+
+public class Test implements Serializable {
 
     String ID;
     Integer P0;
     Integer P1;
     Integer P2;
+    String date;
 
-    public Test(String ID, Integer p0, Integer p1, Integer p2) {
+    public Test(String ID, Integer p0, Integer p1, Integer p2,String date) {
         this.ID = ID;
         P0 = p0;
         P1 = p1;
         P2 = p2;
+        this.date=date;
     }
 
     public Test() {
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getID() {

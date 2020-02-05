@@ -1,5 +1,7 @@
 package com.iutbm.example.iutbm.couchot.healthybody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Patient {
@@ -22,6 +24,9 @@ public class Patient {
     }
 
     public Patient() {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = format.format( new Date() );
+        ListeTest.put("id",new Test("ID",0,0,0,dateString));
     }
 
     public String getID() {

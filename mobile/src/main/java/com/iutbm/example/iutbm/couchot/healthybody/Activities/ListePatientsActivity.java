@@ -2,10 +2,13 @@ package com.iutbm.example.iutbm.couchot.healthybody.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,14 +32,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.iutbm.example.iutbm.couchot.healthybody.Fragment.ListePatientsFragment;
 import com.iutbm.example.iutbm.couchot.healthybody.Medecin;
 import com.iutbm.example.iutbm.couchot.healthybody.Patient;
 import com.iutbm.example.iutbm.couchot.healthybody.R;
 import com.iutbm.example.iutbm.couchot.healthybody.SynchronisationMedecins;
+import com.iutbm.example.iutbm.couchot.healthybody.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NavigableMap;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class ListePatientsActivity extends AppCompatActivity {
 
@@ -88,6 +95,9 @@ public class ListePatientsActivity extends AppCompatActivity {
                 }
                  MyAdapter md=new MyAdapter(getApplicationContext(),R.layout.layout_contact_list,patientArrayList);
                 lv.setAdapter(md);
+
+
+
             }
         });
 
@@ -127,13 +137,6 @@ public class ListePatientsActivity extends AppCompatActivity {
 
             }
         });
-
-/*
-        String[] list={"a","b"};
-        ArrayAdapter<String> aa = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,list);
-        lv.setAdapter(aa);
-*/
-
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,6 +172,21 @@ public class ListePatientsActivity extends AppCompatActivity {
                     lrAddPatient.setVisibility(View.GONE);
                     MainShow.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Patient p=(Patient) lv.getItemAtPosition(position);
+
+                Intent intent=new Intent(getApplicationContext(),DetailsPatientActivity.class);
+                intent.putExtra("id",p.getID());
+                intent.putExtra("full",p.getNom()+" "+p.getPrenom());
+                intent.putExtra("values",p.getListeTest());
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
 
@@ -228,8 +246,27 @@ public class ListePatientsActivity extends AppCompatActivity {
             //Fill les element
 
             txtNomPrenom.setText(patients.get(position).getNom()+" "+patients.get(position).getPrenom());
-            dateDuTest.setText(patients.get(position).getID());
-            statutDuTest.setText("En forme");
+
+            ArrayList<Test> listP=new ArrayList<>();
+            for (Test i:patients.get(position).getListeTest().values()
+                 ) {
+                listP.add(i);
+            }
+            if(listP.size()>0){
+                dateDuTest.setText(listP.get(listP.size()-1).getDate());
+                if(listP.get(listP.size()-1).getP0()>0){
+                    statutDuTest.setText("En forme");
+                    statutDuTest.setTextColor(getResources().getColor(R.color.colorGreen));
+                }else {
+                    statutDuTest.setText("Pas mal");
+                    statutDuTest.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+            }else {
+                dateDuTest.setText("");
+                statutDuTest.setText("");
+
+            }
+
 
 
             return convertView;
