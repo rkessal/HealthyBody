@@ -34,7 +34,7 @@
                 android:textSize="@dimen/title"
                 android:textColor="@color/colorPrimaryPink"
                 android:text="01/01/2020"
-                android:textStyle="italic|bold"
+                android:textStyle="bold"
                 />
         </LinearLayout>
         <LinearLayout
@@ -63,7 +63,7 @@
                     android:textSize="@dimen/title"
                     android:textColor="@color/colorPrimaryPink"
                     android:text="P0"
-                    android:textStyle="italic|bold"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:id="@+id/p1"
@@ -73,7 +73,7 @@
                     android:textSize="@dimen/title"
                     android:textColor="@color/colorPrimaryPink"
                     android:text="P0"
-                    android:textStyle="italic|bold"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:id="@+id/p2"
@@ -83,7 +83,7 @@
                     android:textSize="@dimen/title"
                     android:textColor="@color/colorPrimaryPink"
                     android:text="P0"
-                    android:textStyle="italic|bold"
+                    android:textStyle="bold"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -113,7 +113,7 @@
                     android:textSize="@dimen/title"
                     android:textColor="@color/colorPrimaryPink"
                     android:text="lr"
-                    android:textStyle="italic|bold"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:id="@+id/ld"
@@ -123,7 +123,7 @@
                     android:textSize="@dimen/title"
                     android:textColor="@color/colorPrimaryPink"
                     android:text="ld"
-                    android:textStyle="italic|bold"
+                    android:textStyle="bold"
                     />
             </LinearLayout>
         </LinearLayout>
